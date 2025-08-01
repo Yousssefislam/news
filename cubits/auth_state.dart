@@ -14,7 +14,6 @@ class AuthSuccess extends AuthState {
 class AuthError extends AuthState {
   final String message;
   final String field;
-
   AuthError(this.message, this.field);
 }
 
@@ -23,9 +22,4 @@ class AuthLoggedOut extends AuthState {}
 class AuthRegistered extends AuthState {
   final UserModel user;
   AuthRegistered(this.user);
-}
-
-class AuthValidationError extends AuthState {
-  final Map<String, String> errors;
-  AuthValidationError(this.errors);
 }

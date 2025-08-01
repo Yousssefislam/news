@@ -6,7 +6,7 @@ class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial());
 
   void login(String email, String password) async {
-    emit(AuthLoading());
+    emit(AuthLoading() as AuthRegistered);
 
     if (email == "joe@gmail.com" && password == "12345") {
       final user = UserModel(
@@ -17,19 +17,22 @@ class AuthCubit extends Cubit<AuthState> {
         passwordHash: 'hashed_password',
         createdAt: DateTime.now(),
       );
-      emit(AuthSuccess(user));
+      emit(AuthSuccess(user) as AuthRegistered);
     } else {
-      emit(AuthError('Invalid email or password', 'email'));
+      emit(AuthError('Invalid email or password', 'email') as AuthRegistered);
     }
   }
 
   void logout() {
-    emit(AuthLoggedOut());
+    emit(AuthLoggedOut() as AuthRegistered);
   }
 
   void register(UserModel user) async {
-    emit(AuthLoading());
+    emit(AuthLoading() as AuthRegistered);
     await Future.delayed(Duration(seconds: 1));
     emit(AuthRegistered(user));
   }
+}
+
+void emit(AuthRegistered authRegistered) {
 }
